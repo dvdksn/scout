@@ -1,0 +1,4 @@
+# README
+
+term
+: definition
