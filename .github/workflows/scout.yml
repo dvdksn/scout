@@ -58,5 +58,6 @@ jobs:
         uses: docker/scout-action@v1
         with:
           command: policy
+          exit-code: true
           organization: davidkarlsson416
           image: ${{ steps.meta.outputs.tags }}
