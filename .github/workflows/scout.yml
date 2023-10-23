@@ -28,11 +28,12 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           load: true
-          tags: user/app:latest
+          tags: davidkarlsson416/scout:123
       - name: Evaluate policy
         uses: docker/scout-action@v1
         with:
           command: policy
           exit-code: true
+          to-latest: true
           organization: davidkarlsson416
-          image: user/app:latest
+          image: davidkarlsson416/scout:123
