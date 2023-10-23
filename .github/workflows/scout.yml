@@ -34,6 +34,6 @@ jobs:
         with:
           command: policy
           exit-code: true
-          to-latest: true
+          environment: "latest"
           organization: davidkarlsson416
           image: davidkarlsson416/scout:123
