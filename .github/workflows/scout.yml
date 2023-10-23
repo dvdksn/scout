@@ -10,6 +10,9 @@ on:
 
 jobs:
   build:
+    permissions:
+      pull-requests: write
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,5 +33,6 @@ jobs:
         uses: docker/scout-action@v1
         with:
           command: policy
+          exit-code: true
           organization: davidkarlsson416
           image: user/app:latest
