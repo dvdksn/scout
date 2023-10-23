@@ -14,8 +14,6 @@ env:
   REGISTRY: docker.io
   IMAGE_NAME: davidkarlsson416/scout
   SHA: ${{ github.event.pull_request.head.sha || github.event.after }}
-  # Use `latest` as the tag to compare to if empty, assuming that it's already pushed
-  # COMPARE_TAG: latest
 
 jobs:
   build:
@@ -56,11 +54,9 @@ jobs:
             *.output=type=docker
             *.cache-from=type=gha
             *.cache-to=type=gha,mode=max
-          push: true
       - name: Evaluate policy
-        uses: felipecruz91/scout-action@main
+        uses: docker/scout-action@v1
         with:
           command: policy
-          debug: true
           organization: davidkarlsson416
           image: ${{ steps.meta.outputs.tags }}
