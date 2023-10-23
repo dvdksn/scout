@@ -24,6 +24,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
+          load: true
           tags: user/app:latest
       - name: Evaluate policy
         uses: docker/scout-action@v1
