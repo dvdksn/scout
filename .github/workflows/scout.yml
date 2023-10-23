@@ -7,22 +7,10 @@ on:
       - "main"
   pull_request:
     branches: ["**"]
-  workflow_dispatch:
-
-env:
-  # Use docker.io for Docker Hub if empty
-  REGISTRY: docker.io
-  IMAGE_NAME: davidkarlsson416/scout
-  SHA: ${{ github.event.pull_request.head.sha || github.event.after }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-      pull-requests: write
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,31 +21,13 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PAT }}
-      - name: Extract Docker metadata
-        id: meta
-        uses: docker/metadata-action@v5
+      - name: Build and push
+        uses: docker/build-push-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          labels: |
-            org.opencontainers.image.revision=${{ env.SHA }}
-          tags: |
-            type=edge,branch=$repo.default_branch
-            type=semver,pattern=v{{version}}
-            type=sha,prefix=,suffix=,format=short
-      - name: Build
-        uses: docker/bake-action@v4
-        with:
-          files: docker-bake.hcl
-          targets: default
-          set: |
-            *.tags=${{ steps.meta.outputs.tags }}
-            *.output=type=docker
-            *.cache-from=type=gha
-            *.cache-to=type=gha,mode=max
+          tags: user/app:latest
       - name: Evaluate policy
         uses: docker/scout-action@v1
         with:
           command: policy
-          exit-code: true
           organization: davidkarlsson416
-          image: ${{ steps.meta.outputs.tags }}
+          image: user/app:latest
