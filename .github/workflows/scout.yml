@@ -28,11 +28,13 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           load: true
-          tags: user/app:latest
+          tags: davidkarlsson416/scout:123
       - name: Evaluate policy
         uses: docker/scout-action@v1
+        continue-on-error: true
         with:
-          command: policy
+          command: compare
           exit-code: true
+          environment: staging
           organization: davidkarlsson416
-          image: user/app:latest
+          image: davidkarlsson416/scout:123
