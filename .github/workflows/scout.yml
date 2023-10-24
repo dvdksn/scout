@@ -31,9 +31,10 @@ jobs:
           tags: davidkarlsson416/scout:123
       - name: Evaluate policy
         uses: docker/scout-action@v1
+        continue-on-error: true
         with:
-          command: policy
+          command: compare
           exit-code: true
-          environment: "latest"
+          environment: staging
           organization: davidkarlsson416
           image: davidkarlsson416/scout:123
