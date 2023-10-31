@@ -28,13 +28,14 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           load: true
-          tags: davidkarlsson416/scout:123
+          tags: davidkarlsson416/scout:${{ github.sha }}
       - name: Evaluate policy
         uses: docker/scout-action@v1
-        continue-on-error: true
         with:
           command: compare
-          exit-code: true
+          ignore-unchanged: true
+          only-severities: critical,high
           environment: staging
+          to: davidkarlsson416/scout:latest
           organization: davidkarlsson416
-          image: davidkarlsson416/scout:123
+          image: davidkarlsson416/scout:${{ github.sha }}
