@@ -34,8 +34,6 @@ jobs:
         with:
           command: compare
           ignore-unchanged: true
-          only-severities: critical,high
-          environment: staging
-          to: davidkarlsson416/scout:latest
+          to: davidkarlsson416/scout:3141
           organization: davidkarlsson416
           image: davidkarlsson416/scout:${{ github.sha }}
