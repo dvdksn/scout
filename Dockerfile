@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM alpine:3.18
+FROM alpine:3.18.0
 RUN apk add nodejs npm
 WORKDIR /app
 RUN --mount=type=bind,source=package-lock.json,target=package-lock.json \
