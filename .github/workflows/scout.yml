@@ -41,8 +41,8 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          load: false
-          push: true
+          load: true
+          push: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: "linux/amd64"
@@ -50,7 +50,7 @@ jobs:
           # provenance: true
 
       - name: Compare
-        uses: felipecruz91/scout-action@main
+        uses: docker/scout-action@main
         with:
           command: compare
           # debug: true
