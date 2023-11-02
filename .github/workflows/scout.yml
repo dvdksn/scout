@@ -41,8 +41,8 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          load: ${{ github.event_name == 'pull_request' }}
-          push: ${{ github.event_name != 'pull_request' }}
+          load: false
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: "linux/amd64"
@@ -50,7 +50,7 @@ jobs:
           # provenance: true
 
       - name: Compare
-        uses: docker/scout-action@main
+        uses: felipecruz91/scout-action@main
         with:
           command: compare
           # debug: true
