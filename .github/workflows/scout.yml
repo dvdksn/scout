@@ -50,7 +50,7 @@ jobs:
 
       - name: Compare
         if: ${{ github.event_name == 'pull_request' }}
-        uses: docker/scout-action@v1
+        uses: pnorton5432/scout-action@testing
         with:
           command: compare
           image: ${{ steps.meta.outputs.tags }}
